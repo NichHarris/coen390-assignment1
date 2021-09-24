@@ -3,6 +3,9 @@ package com.example.coen390assignment1;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.Toast;
 
 public class DataActivity extends AppCompatActivity {
 
@@ -13,9 +16,25 @@ public class DataActivity extends AppCompatActivity {
 
         assert getSupportActionBar() != null;
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
     }
 
+    // Display options menu in taskbar
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.datamenu, menu);
+        return true;
+    }
+
+    @Override
+    public  boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if(id == R.id.toggle_event_names) {
+            Toast.makeText(this, "Item 2 Clicks", Toast.LENGTH_SHORT).show();
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    // Navigate back to homepage on taskbar return
     @Override
     public boolean onSupportNavigateUp(){
         finish();

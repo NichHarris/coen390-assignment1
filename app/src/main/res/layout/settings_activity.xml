@@ -13,7 +13,7 @@
         android:layout_marginStart="35dp"
         android:layout_marginTop="375dp"
         android:inputType="text"
-        android:text="Name goes here" />
+        android:text="Max count goes here" />
 
     <TextView
         android:layout_width="wrap_content"
