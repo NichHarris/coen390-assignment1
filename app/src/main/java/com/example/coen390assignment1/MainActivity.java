@@ -9,7 +9,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
-    private Button settings, eventA, eventB, eventC, count;
+    private Button settings, counterA, counterB, counterC, count;
     TextView tV;
     int counter;
     @Override
@@ -18,9 +18,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         settings = (Button) findViewById(R.id.settingsButton);
-        eventA = (Button) findViewById(R.id.eventA);
-        eventB = (Button) findViewById(R.id.eventB);
-        eventC = (Button) findViewById(R.id.eventC);
+        counterA = (Button) findViewById(R.id.eventA);
+        counterB = (Button) findViewById(R.id.eventB);
+        counterC = (Button) findViewById(R.id.eventC);
         count = (Button) findViewById(R.id.showCounts);
         tV = findViewById(R.id.textView);
 
@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         // Increment Counter
-        eventA.setOnClickListener(new View.OnClickListener() {
+        counterA.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 counter++;
@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        eventB.setOnClickListener(new View.OnClickListener() {
+        counterB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 counter++;
@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        eventC.setOnClickListener(new View.OnClickListener() {
+        counterC.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 counter++;
