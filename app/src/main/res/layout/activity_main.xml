@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Main Activity"
+        android:layout_centerVertical="false"
+        android:layout_marginTop="50dp"
+        android:layout_centerHorizontal="true" />
+
+    <!-- Settings Button -->
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/settingsButton"
+        android:text="SETTINGS"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="100dp" />
+
+    <!-- Event A Button -->
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/eventA"
+        android:text="EVENT A"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="250dp" />
+
+    <!-- Event B Button -->
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/eventB"
+        android:text="EVENT B"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="325dp" />
+
+    <!-- Event C Button -->
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/eventC"
+        android:text="EVENT C"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="400dp" />
+
+    <!-- Show My Counts Button -->
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/showCounts"
+        android:text="SHOW MY COUNTS"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="575dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="500dp"
+        android:text="Total Count: 0"
+        android:textSize="20sp"
+        android:id="@+id/textView" />
+</RelativeLayout>
