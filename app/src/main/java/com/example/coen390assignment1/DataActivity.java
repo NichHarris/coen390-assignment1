@@ -18,13 +18,14 @@ public class DataActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
-    // Display options menu in taskbar
+    // Display options menu in task-bar
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.datamenu, menu);
         return true;
     }
 
+    // Create the action when an option on the task-bar is selected
     @Override
     public  boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
@@ -34,7 +35,7 @@ public class DataActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    // Navigate back to homepage on taskbar return
+    // Navigate back to homepage on task-bar return
     @Override
     public boolean onSupportNavigateUp(){
         finish();

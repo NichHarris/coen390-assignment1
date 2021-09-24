@@ -9,7 +9,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Main Activity"
+        android:text="@string/main_activity"
         android:layout_marginTop="50dp"
         android:layout_centerHorizontal="true" />
 
@@ -18,7 +18,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/settingsButton"
-        android:text="SETTINGS"
+        android:text="@string/settings"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="100dp" />
 
@@ -27,7 +27,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/eventA"
-        android:text="EVENT A"
+        android:text="@string/event_a"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="250dp" />
 
@@ -36,7 +36,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/eventB"
-        android:text="EVENT B"
+        android:text="@string/event_b"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="325dp" />
 
@@ -45,7 +45,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/eventC"
-        android:text="EVENT C"
+        android:text="@string/event_c"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="400dp" />
 
@@ -54,7 +54,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/showCounts"
-        android:text="SHOW MY COUNTS"
+        android:text="@string/show_my_counts"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="575dp" />
 
@@ -63,7 +63,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="500dp"
-        android:text="Total Count: 0"
+        android:text="@string/total_count_0"
         android:textSize="20sp"
         android:id="@+id/textView" />
 </RelativeLayout>
