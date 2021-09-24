@@ -5,11 +5,83 @@
     android:layout_height="match_parent"
     tools:context=".SettingsActivity">
 
+    <EditText
+        android:id="@+id/editTextMaxCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="16"
+        android:layout_marginStart="35dp"
+        android:layout_marginTop="375dp"
+        android:inputType="text"
+        android:text="Name goes here" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="350dp"
+        android:text="Maximum Counts"
+        android:textSize="20sp" />
+
+    <EditText
+        android:id="@+id/editTextCounter3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="35dp"
+        android:layout_marginTop="275dp"
+        android:ems="16"
+        android:inputType="text"
+        android:text="Name goes here" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="250dp"
+        android:text="Counter 3 Name"
+        android:textSize="20sp" />
+
+    <EditText
+        android:id="@+id/editTextCounter2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="16"
+        android:layout_marginStart="35dp"
+        android:layout_marginTop="175dp"
+        android:inputType="text"
+        android:text="Name goes here" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="150dp"
+        android:text="Counter 2 Name"
+        android:textSize="20sp" />
+
+    <EditText
+        android:id="@+id/editTextCounter1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="16"
+        android:layout_marginStart="35dp"
+        android:layout_marginTop="75dp"
+        android:inputType="text"
+        android:text="Name goes here" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
         android:layout_marginTop="50dp"
-        android:text="Settings Activity" />
+        android:text="Counter 1 Name"
+        android:textSize="20sp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="600dp"
+        android:text="SAVE" />
 
 </RelativeLayout>

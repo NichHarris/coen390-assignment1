@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.COEN390Assignment1">
-        <activity android:name=".DataActivity"></activity>
+
+        <!-- Main Activity (parent) -->
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -17,14 +18,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- Settings Activity (child) -->
         <activity
             android:name=".SettingsActivity"
-            android:label="@string/app_name">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            android:parentActivityName="com.example.coen390assignment1.MainActivity">
+        </activity>
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+        <!-- Data Activity (child) -->
+        <activity
+            android:name=".DataActivity"
+            android:parentActivityName="com.example.coen390assignment1.MainActivity">
         </activity>
     </application>
 
