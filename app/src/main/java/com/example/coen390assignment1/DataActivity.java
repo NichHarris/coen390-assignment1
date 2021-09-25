@@ -5,9 +5,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class DataActivity extends AppCompatActivity {
+
+    // Initialize variables
+    protected SharedPreferenceHelper sharedPreferenceHelper;
+    protected TextView eventName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -16,6 +22,24 @@ public class DataActivity extends AppCompatActivity {
 
         assert getSupportActionBar() != null;
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        sharedPreferenceHelper = new SharedPreferenceHelper(DataActivity.this);
+
+        getEventData();
+    }
+
+    public void getEventData(){
+        eventName = (TextView) findViewById(R.id.data_counterA);
+        eventName.setText(String.format("%s: %d events", sharedPreferenceHelper.getEventName(0), sharedPreferenceHelper.getEventValue("event1")));
+
+        eventName = (TextView) findViewById(R.id.data_counterB);
+        eventName.setText(String.format("%s: %d events", sharedPreferenceHelper.getEventName(1), sharedPreferenceHelper.getEventValue("event2")));
+
+        eventName = (TextView) findViewById(R.id.data_counterC);
+        eventName.setText(String.format("%s: %d events", sharedPreferenceHelper.getEventName(2), sharedPreferenceHelper.getEventValue("event3")));
+
+        eventName = (TextView) findViewById(R.id.total_events);
+        eventName.setText(String.format("Total events: %d", sharedPreferenceHelper.getTotalEvents()));
     }
 
     // Display options menu in task-bar

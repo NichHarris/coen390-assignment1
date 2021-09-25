@@ -7,11 +7,36 @@
     tools:context=".DataActivity">
 
     <TextView
+        android:id="@+id/data_counterA"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
+        android:layout_marginStart="20sp"
         android:layout_marginTop="50dp"
-        android:text="@string/data_activity" />
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/data_counterB"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20sp"
+        android:layout_marginTop="75dp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/data_counterC"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20sp"
+        android:layout_marginTop="100dp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/total_events"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20sp"
+        android:layout_marginTop="125dp"
+        android:textStyle="bold" />
 
 
 

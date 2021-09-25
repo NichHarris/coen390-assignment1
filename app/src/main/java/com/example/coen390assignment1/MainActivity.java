@@ -11,7 +11,7 @@ import android.widget.TextView;
 public class MainActivity extends AppCompatActivity {
     // Initialize variables
     protected TextView textView;
-    protected int counter;
+    protected int counter, countA, countB, countC;
     protected SharedPreferenceHelper sharedPreferenceHelper;
     protected Button settings, counterA, counterB, counterC, count;
 
@@ -42,7 +42,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 counter++;
+                countA++;
                 textView.setText("Total Count: " + counter);
+                sharedPreferenceHelper.saveEventValue(countA, 0);
+                sharedPreferenceHelper.saveTotalEvents(counter);
             }
         });
 
@@ -50,7 +53,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 counter++;
+                countB++;
                 textView.setText("Total Count: " + counter);
+                sharedPreferenceHelper.saveEventValue(countB, 1);
+                sharedPreferenceHelper.saveTotalEvents(counter);
             }
         });
 
@@ -58,7 +64,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 counter++;
+                countC++;
                 textView.setText("Total Count: " + counter);
+                sharedPreferenceHelper.saveEventValue(countC, 2);
+                sharedPreferenceHelper.saveTotalEvents(counter);
+
             }
         });
 
@@ -77,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
 
         for (int id = 0; id < 3; id++){
             String eventName = sharedPreferenceHelper.getEventName(id);
-            if (eventName.equals("") || eventName == null)
+            if (eventName == null)
                 openSettingsActivity();
 
             switch (id){
@@ -100,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
 
         for (int id = 0; id < 3; id++){
             String eventName = sharedPreferenceHelper.getEventName(id);
-            if (eventName.equals("") || eventName == null)
+            if (eventName == null)
                 openSettingsActivity();
         }
     }
