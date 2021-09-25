@@ -9,20 +9,25 @@ import android.widget.Button;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
-    private Button settings, counterA, counterB, counterC, count;
-    TextView tV;
-    int counter;
+    // Initialize variables
+    protected TextView textView;
+    protected int counter;
+    protected SharedPreferenceHelper sharedPreferenceHelper;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        sharedPreferenceHelper = new SharedPreferenceHelper(MainActivity.this);
+        Button settings, counterA, counterB, counterC, count;
 
         settings = (Button) findViewById(R.id.settingsButton);
         counterA = (Button) findViewById(R.id.eventA);
         counterB = (Button) findViewById(R.id.eventB);
         counterC = (Button) findViewById(R.id.eventC);
         count = (Button) findViewById(R.id.showCounts);
-        tV = findViewById(R.id.textView);
+        textView = findViewById(R.id.textView);
 
         // Call openSettingsActivity on click
         settings.setOnClickListener(new View.OnClickListener(){
@@ -37,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 counter++;
-                tV.setText("Total Count: " + counter);
+                textView.setText("Total Count: " + counter);
             }
         });
 
@@ -45,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 counter++;
-                tV.setText("Total Count: " + counter);
+                textView.setText("Total Count: " + counter);
             }
         });
 
@@ -53,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 counter++;
-                tV.setText("Total Count: " + counter);
+                textView.setText("Total Count: " + counter);
             }
         });
 
@@ -66,6 +71,16 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        for (int id = 1; id <= 3; id++){
+            String name = sharedPreferenceHelper.getEventName(id);
+            if (name == null)
+                openSettingsActivity();
+        }
+    }
     // Switch to Settings Activity Tab
     public void openSettingsActivity() {
         Intent intent = new Intent(this, SettingsActivity.class);
