@@ -33,13 +33,13 @@ public class SharedPreferenceHelper {
     public String getEventType(int eventId){
         String eventName = null;
         switch (eventId){
-            case 1:
+            case 0:
                 eventName = "eventOne";
                 break;
-            case 2:
+            case 1:
                 eventName = "eventTwo";
                 break;
-            case 3:
+            case 2:
                 eventName = "eventThree";
                 break;
         }

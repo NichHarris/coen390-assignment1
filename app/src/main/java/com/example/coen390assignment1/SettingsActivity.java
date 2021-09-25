@@ -50,9 +50,9 @@ public class SettingsActivity extends AppCompatActivity {
                 String max = maxCount.getText().toString();
 
                 sharedPreferenceHelper = new SharedPreferenceHelper(SettingsActivity.this);
-                sharedPreferenceHelper.saveEventName(event1, 1);
-                sharedPreferenceHelper.saveEventName(event2, 2);
-                sharedPreferenceHelper.saveEventName(event3, 3);
+                sharedPreferenceHelper.saveEventName(event1, 0);
+                sharedPreferenceHelper.saveEventName(event2, 1);
+                sharedPreferenceHelper.saveEventName(event3, 2);
                 sharedPreferenceHelper.saveMaxCount(max);
 
                 Toast toast = Toast.makeText(getApplicationContext(), "Save successful", Toast.LENGTH_LONG);
@@ -73,7 +73,6 @@ public class SettingsActivity extends AppCompatActivity {
     public  boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if(id == R.id.edit_settings) {
-
             Toast.makeText(this, "Item Clicks", Toast.LENGTH_SHORT).show();
         }
         return super.onOptionsItemSelected(item);

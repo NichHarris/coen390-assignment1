@@ -74,26 +74,33 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        String event1 = sharedPreferenceHelper.getEventName(1);
-        String event2 = sharedPreferenceHelper.getEventName(2);
-        String event3 = sharedPreferenceHelper.getEventName(3);
 
-        // Update counter names
-        assert event1 != null;
-        counterA.setText(event1);
-        assert event2 != null;
-        counterB.setText(event2);
-        assert event3 != null;
-        counterC.setText(event3);
+        for (int id = 0; id < 3; id++){
+            String eventName = sharedPreferenceHelper.getEventName(id);
+            if (eventName.equals("") || eventName == null)
+                openSettingsActivity();
+
+            switch (id){
+                case 0:
+                    counterA.setText(eventName);
+                    break;
+                case 1:
+                    counterB.setText(eventName);
+                    break;
+                case 2:
+                    counterC.setText(eventName);
+                    break;
+            }
+        }
     }
 
     @Override
     protected void onStart() {
         super.onStart();
 
-        for (int id = 1; id <= 3; id++){
-            String name = sharedPreferenceHelper.getEventName(id);
-            if (name == "Name goes here")
+        for (int id = 0; id < 3; id++){
+            String eventName = sharedPreferenceHelper.getEventName(id);
+            if (eventName.equals("") || eventName == null)
                 openSettingsActivity();
         }
     }
@@ -108,4 +115,5 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, DataActivity.class);
         startActivity(intent);
     }
+
 }

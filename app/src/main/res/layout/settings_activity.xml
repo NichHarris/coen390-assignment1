@@ -12,6 +12,7 @@
         android:ems="16"
         android:layout_marginStart="35dp"
         android:layout_marginTop="375dp"
+        android:inputType="numberDecimal"
         android:hint="@string/max_count_goes_here" />
 
     <TextView
@@ -30,6 +31,7 @@
         android:layout_marginTop="275dp"
         android:ems="16"
         android:inputType="text"
+        android:maxLength="20"
         android:hint="@string/name_goes_here" />
 
     <TextView
@@ -48,6 +50,7 @@
         android:layout_marginStart="35dp"
         android:layout_marginTop="175dp"
         android:inputType="text"
+        android:maxLength="20"
         android:hint="@string/name_goes_here" />
 
     <TextView
@@ -66,6 +69,7 @@
         android:layout_marginStart="35dp"
         android:layout_marginTop="75dp"
         android:inputType="text"
+        android:maxLength="20"
         android:hint="@string/name_goes_here" />
 
     <TextView
