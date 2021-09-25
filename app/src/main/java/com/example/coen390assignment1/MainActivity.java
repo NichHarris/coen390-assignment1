@@ -13,6 +13,7 @@ public class MainActivity extends AppCompatActivity {
     protected TextView textView;
     protected int counter;
     protected SharedPreferenceHelper sharedPreferenceHelper;
+    protected Button settings, counterA, counterB, counterC, count;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,7 +21,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         sharedPreferenceHelper = new SharedPreferenceHelper(MainActivity.this);
-        Button settings, counterA, counterB, counterC, count;
 
         settings = (Button) findViewById(R.id.settingsButton);
         counterA = (Button) findViewById(R.id.eventA);
@@ -72,12 +72,28 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        String event1 = sharedPreferenceHelper.getEventName(1);
+        String event2 = sharedPreferenceHelper.getEventName(2);
+        String event3 = sharedPreferenceHelper.getEventName(3);
+
+        // Update counter names
+        assert event1 != null;
+        counterA.setText(event1);
+        assert event2 != null;
+        counterB.setText(event2);
+        assert event3 != null;
+        counterC.setText(event3);
+    }
+
+    @Override
     protected void onStart() {
         super.onStart();
 
         for (int id = 1; id <= 3; id++){
             String name = sharedPreferenceHelper.getEventName(id);
-            if (name == null)
+            if (name == "Name goes here")
                 openSettingsActivity();
         }
     }

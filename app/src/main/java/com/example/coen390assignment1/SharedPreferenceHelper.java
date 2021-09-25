@@ -9,6 +9,15 @@ public class SharedPreferenceHelper {
         sharedPreferences = context.getSharedPreferences("EventPreference", Context.MODE_PRIVATE);
     }
 
+    public void saveMaxCount(String max){
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        assert editor != null;
+        // TODO: Bug check if number then attempt to cast, causes crash
+        editor.putInt("maxCount", Integer.parseInt(max));
+        editor.commit();
+    }
+
     public void saveEventName(String name, int eventId){
         SharedPreferences.Editor editor = sharedPreferences.edit();
 

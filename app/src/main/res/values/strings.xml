@@ -27,7 +27,6 @@
     <string name="save">SAVE</string>
     <string name="counter_3_name">Counter 3 Name</string>
     <string name="maximum_counts">Maximum Counts</string>
-    <string name="max_count_goes_here">Max count goes here</string>
     <string name="main_activity">Main Activity</string>
     <string name="settings">SETTINGS</string>
     <string name="event_a">EVENT A</string>
@@ -35,4 +34,5 @@
     <string name="event_c">EVENT C</string>
     <string name="show_my_counts">SHOW MY COUNTS</string>
     <string name="total_count_0">Total Count: 0</string>
+    <string name="max_count_goes_here">Max count goes here</string>
 </resources>
