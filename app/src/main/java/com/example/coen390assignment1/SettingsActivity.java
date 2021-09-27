@@ -23,7 +23,7 @@ public class SettingsActivity extends AppCompatActivity {
     protected EditText maxCount;
     protected Button saveButton;
     protected SharedPreferenceHelper sharedPreferenceHelper;
-
+    private boolean savedData = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,6 +55,12 @@ public class SettingsActivity extends AppCompatActivity {
                 sharedPreferenceHelper.saveEventName(event3, 2);
                 sharedPreferenceHelper.saveMaxCount(max);
 
+                editEvent1.setEnabled(false);
+                editEvent2.setEnabled(false);
+                editEvent3.setEnabled(false);
+                maxCount.setEnabled(false);
+                saveButton.setEnabled(false);
+
                 Toast toast = Toast.makeText(getApplicationContext(), "Save successful", Toast.LENGTH_LONG);
                 toast.show();
             }
@@ -73,7 +79,11 @@ public class SettingsActivity extends AppCompatActivity {
     public  boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if(id == R.id.edit_settings) {
-            Toast.makeText(this, "Item Clicks", Toast.LENGTH_SHORT).show();
+            editEvent1.setEnabled(true);
+            editEvent2.setEnabled(true);
+            editEvent3.setEnabled(true);
+            maxCount.setEnabled(true);
+            saveButton.setEnabled(true);
         }
         return super.onOptionsItemSelected(item);
     }
@@ -90,5 +100,9 @@ public class SettingsActivity extends AppCompatActivity {
     public boolean onSupportNavigateUp(){
         finish();
         return true;
+    }
+
+    public boolean isSavedData(){
+        return savedData;
     }
 }
