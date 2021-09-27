@@ -11,10 +11,22 @@ public class SharedPreferenceHelper {
 
     public void saveMaxCount(String max){
         SharedPreferences.Editor editor = sharedPreferences.edit();
-
+        int maxInt = Integer.parseInt(max);
         assert editor != null;
-        editor.putInt("maxCount", Integer.parseInt(max));
+        if (maxInt > 200){
+            editor.putInt("maxCount", 200);
+        }
+        else if(maxInt < 5){
+            editor.putInt("maxCount", 5);
+        }
+        else{
+            editor.putInt("maxCount", maxInt);
+        }
         editor.commit();
+    }
+
+    public int getMaxCount() {
+        return sharedPreferences.getInt("maxCount", 5);
     }
 
     public void saveTotalEvents(int value){
@@ -37,8 +49,7 @@ public class SharedPreferenceHelper {
         editor.commit();
     }
 
-    public String getEventName(int eventId){
-        return sharedPreferences.getString(getEventType(eventId), null);
+    public String getEventName(int eventId){ return sharedPreferences.getString(getEventType(eventId), null);
     }
 
     public void saveEventValue(int value, int eventId){

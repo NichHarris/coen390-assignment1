@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
     // Initialize variables
@@ -19,7 +20,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         sharedPreferenceHelper = new SharedPreferenceHelper(MainActivity.this);
 
         settings = (Button) findViewById(R.id.settingsButton);
@@ -41,34 +41,46 @@ public class MainActivity extends AppCompatActivity {
         counterA.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                counter++;
-                countA++;
-                textView.setText("Total Count: " + counter);
-                sharedPreferenceHelper.saveEventValue(countA, 0);
-                sharedPreferenceHelper.saveTotalEvents(counter);
+                if (counter < sharedPreferenceHelper.getMaxCount()){
+                    counter++;
+                    countA++;
+                    textView.setText("Total Count: " + counter);
+                    sharedPreferenceHelper.saveEventValue(countA, 0);
+                    sharedPreferenceHelper.saveTotalEvents(counter);
+                }
+                else {
+                    maxCountMessage();
+                }
             }
         });
 
         counterB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                counter++;
-                countB++;
-                textView.setText("Total Count: " + counter);
-                sharedPreferenceHelper.saveEventValue(countB, 1);
-                sharedPreferenceHelper.saveTotalEvents(counter);
+                if (counter < sharedPreferenceHelper.getMaxCount()) {
+                    counter++;
+                    countB++;
+                    textView.setText("Total Count: " + counter);
+                    sharedPreferenceHelper.saveEventValue(countB, 1);
+                    sharedPreferenceHelper.saveTotalEvents(counter);
+                } else {
+                    maxCountMessage();
+                }
             }
         });
 
         counterC.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                counter++;
-                countC++;
-                textView.setText("Total Count: " + counter);
-                sharedPreferenceHelper.saveEventValue(countC, 2);
-                sharedPreferenceHelper.saveTotalEvents(counter);
-
+                if (counter < sharedPreferenceHelper.getMaxCount()) {
+                    counter++;
+                    countC++;
+                    textView.setText("Total Count: " + counter);
+                    sharedPreferenceHelper.saveEventValue(countC, 2);
+                    sharedPreferenceHelper.saveTotalEvents(counter);
+                } else {
+                    maxCountMessage();
+                }
             }
         });
 
@@ -79,11 +91,13 @@ public class MainActivity extends AppCompatActivity {
                 openDataActivity();
             }
         });
+
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+
 
         for (int id = 0; id < 3; id++){
             String eventName = sharedPreferenceHelper.getEventName(id);
@@ -112,6 +126,7 @@ public class MainActivity extends AppCompatActivity {
             String eventName = sharedPreferenceHelper.getEventName(id);
             if (eventName == null)
                 openSettingsActivity();
+                break;
         }
     }
     // Switch to Settings Activity Tab
@@ -124,6 +139,11 @@ public class MainActivity extends AppCompatActivity {
     public void openDataActivity() {
         Intent intent = new Intent(this, DataActivity.class);
         startActivity(intent);
+    }
+
+    public void maxCountMessage(){
+        Toast toast = Toast.makeText(getApplicationContext(), "Max count achieved", Toast.LENGTH_LONG);
+        toast.show();
     }
 
 }

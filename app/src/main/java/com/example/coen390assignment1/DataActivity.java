@@ -14,6 +14,8 @@ public class DataActivity extends AppCompatActivity {
     // Initialize variables
     protected SharedPreferenceHelper sharedPreferenceHelper;
     protected TextView eventName;
+    private boolean isDefaultMode = true;
+    private String[] defaultNames = {"Counter 1", "Counter 2", "Counter 3"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,18 +27,35 @@ public class DataActivity extends AppCompatActivity {
 
         sharedPreferenceHelper = new SharedPreferenceHelper(DataActivity.this);
 
-        getEventData();
+        if (isDefaultMode){
+            setEventData(sharedPreferenceHelper.getEventName(0), sharedPreferenceHelper.getEventName(1), sharedPreferenceHelper.getEventName(2));
+        }
+        else {
+            setEventData(defaultNames[0], defaultNames[1], defaultNames[2]);
+        }
     }
 
-    public void getEventData(){
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        if (isDefaultMode){
+            setEventData(sharedPreferenceHelper.getEventName(0), sharedPreferenceHelper.getEventName(1), sharedPreferenceHelper.getEventName(2));
+        }
+        else {
+            setEventData(defaultNames[0], defaultNames[1], defaultNames[2]);
+        }
+    }
+
+    public void setEventData(String event1, String event2, String event3){
         eventName = (TextView) findViewById(R.id.data_counterA);
-        eventName.setText(String.format("%s: %d events", sharedPreferenceHelper.getEventName(0), sharedPreferenceHelper.getEventValue("event1")));
+        eventName.setText(String.format("%s: %d events", event1, sharedPreferenceHelper.getEventValue("event1")));
 
         eventName = (TextView) findViewById(R.id.data_counterB);
-        eventName.setText(String.format("%s: %d events", sharedPreferenceHelper.getEventName(1), sharedPreferenceHelper.getEventValue("event2")));
+        eventName.setText(String.format("%s: %d events", event2, sharedPreferenceHelper.getEventValue("event2")));
 
         eventName = (TextView) findViewById(R.id.data_counterC);
-        eventName.setText(String.format("%s: %d events", sharedPreferenceHelper.getEventName(2), sharedPreferenceHelper.getEventValue("event3")));
+        eventName.setText(String.format("%s: %d events", event3, sharedPreferenceHelper.getEventValue("event3")));
 
         eventName = (TextView) findViewById(R.id.total_events);
         eventName.setText(String.format("Total events: %d", sharedPreferenceHelper.getTotalEvents()));
@@ -54,7 +73,19 @@ public class DataActivity extends AppCompatActivity {
     public  boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if(id == R.id.toggle_event_names) {
-            Toast.makeText(this, "Item 2 Clicks", Toast.LENGTH_SHORT).show();
+            if (isDefaultMode) {
+                // swap mode set
+                isDefaultMode = false;
+                // swap to default event names
+                setEventData(defaultNames[0], defaultNames[1], defaultNames[2]);
+            }
+            else {
+                // swap mode set
+                isDefaultMode = true;
+                // swap to event names used in settings
+                setEventData(sharedPreferenceHelper.getEventName(0), sharedPreferenceHelper.getEventName(1), sharedPreferenceHelper.getEventName(2));
+
+            }
         }
         return super.onOptionsItemSelected(item);
     }
