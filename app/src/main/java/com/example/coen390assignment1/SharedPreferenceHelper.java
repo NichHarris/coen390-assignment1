@@ -29,6 +29,17 @@ public class SharedPreferenceHelper {
         return sharedPreferences.getInt("maxCount", 5);
     }
 
+    public int incrementTotalEvents(){
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        int value = sharedPreferences.getInt("totalEvents", 0);
+        value++;
+
+        assert editor != null;
+        editor.putInt("totalEvents", value);
+        editor.apply();
+        return value;
+    }
+
     public void saveTotalEvents(int value){
         SharedPreferences.Editor editor = sharedPreferences.edit();
         assert editor != null;
@@ -47,29 +58,47 @@ public class SharedPreferenceHelper {
         editor.apply();
     }
 
-    public String getEventName(int eventId){ return sharedPreferences.getString(getEventType(eventId), null);
-    }
+    public String getEventName(int eventId){ return sharedPreferences.getString(getEventType(eventId), null); }
 
     public void saveEventValue(int value, int eventId){
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
         assert editor != null;
-        switch (eventId){
-            case 0:
-                editor.putInt("event1", value);
-                break;
-            case 1:
-                editor.putInt("event2", value);
-                break;
-            case 2:
-                editor.putInt("event3", value);
-                break;
-        }
+        editor.putInt(getEventCounterName(eventId), value);
         editor.apply();
     }
 
-    public int getEventValue(String eventId){
-        return sharedPreferences.getInt(eventId, 0);
+    public int incrementEventValue(int eventId) {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        String eventName = getEventCounterName(eventId);
+        int value = sharedPreferences.getInt(eventName, 0 );
+        value++;
+
+        assert editor != null;
+        editor.putInt(eventName, value);
+        editor.apply();
+        return  value;
+    }
+
+    public int getEventValue(int eventId){
+        return sharedPreferences.getInt(getEventCounterName(eventId), 0);
+    }
+
+    public String getEventCounterName(int eventId){
+        String eventCounterName = null;
+        switch (eventId) {
+            case 0:
+                eventCounterName = "event1";
+                break;
+            case 1:
+                eventCounterName = "event2";
+                break;
+            case 2:
+                eventCounterName = "event3";
+                break;
+        }
+        assert eventCounterName != null;
+        return  eventCounterName;
     }
 
     public String getEventType(int eventId){

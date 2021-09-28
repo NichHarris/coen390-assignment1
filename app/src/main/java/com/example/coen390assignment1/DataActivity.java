@@ -48,13 +48,13 @@ public class DataActivity extends AppCompatActivity {
 
     public void setEventData(String event1, String event2, String event3){
         eventName = (TextView) findViewById(R.id.data_counterA);
-        eventName.setText(String.format("%s: %d events", event1, sharedPreferenceHelper.getEventValue("event1")));
+        eventName.setText(String.format("%s: %d events", event1, sharedPreferenceHelper.getEventValue(0)));
 
         eventName = (TextView) findViewById(R.id.data_counterB);
-        eventName.setText(String.format("%s: %d events", event2, sharedPreferenceHelper.getEventValue("event2")));
+        eventName.setText(String.format("%s: %d events", event2, sharedPreferenceHelper.getEventValue(1)));
 
         eventName = (TextView) findViewById(R.id.data_counterC);
-        eventName.setText(String.format("%s: %d events", event3, sharedPreferenceHelper.getEventValue("event3")));
+        eventName.setText(String.format("%s: %d events", event3, sharedPreferenceHelper.getEventValue(2)));
 
         eventName = (TextView) findViewById(R.id.total_events);
         eventName.setText(String.format("Total events: %d", sharedPreferenceHelper.getTotalEvents()));

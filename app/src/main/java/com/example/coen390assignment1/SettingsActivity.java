@@ -124,6 +124,7 @@ public class SettingsActivity extends AppCompatActivity {
         String event2 = editEvent2.getText().toString();
         String event3 = editEvent3.getText().toString();
         String max = maxCount.getText().toString();
+
         if(event1.equals("") || event2.equals("") || event3.equals("") || max.equals("")){
             sharedPreferenceHelper.setEditMode(true);
         }
