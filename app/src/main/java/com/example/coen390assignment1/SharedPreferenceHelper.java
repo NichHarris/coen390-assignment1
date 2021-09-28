@@ -22,7 +22,7 @@ public class SharedPreferenceHelper {
         else{
             editor.putInt("maxCount", maxInt);
         }
-        editor.commit();
+        editor.apply();
     }
 
     public int getMaxCount() {
@@ -31,10 +31,9 @@ public class SharedPreferenceHelper {
 
     public void saveTotalEvents(int value){
         SharedPreferences.Editor editor = sharedPreferences.edit();
-
         assert editor != null;
         editor.putInt("totalEvents", value);
-        editor.commit();
+        editor.apply();
     }
 
     public int getTotalEvents(){
@@ -43,10 +42,9 @@ public class SharedPreferenceHelper {
 
     public void saveEventName(String name, int eventId){
         SharedPreferences.Editor editor = sharedPreferences.edit();
-
         assert editor != null;
         editor.putString(getEventType(eventId), name);
-        editor.commit();
+        editor.apply();
     }
 
     public String getEventName(int eventId){ return sharedPreferences.getString(getEventType(eventId), null);
@@ -67,7 +65,7 @@ public class SharedPreferenceHelper {
                 editor.putInt("event3", value);
                 break;
         }
-        editor.commit();
+        editor.apply();
     }
 
     public int getEventValue(String eventId){
@@ -89,5 +87,18 @@ public class SharedPreferenceHelper {
         }
         assert eventName != null;
         return eventName;
+    }
+
+    // Remove a key/value pair from the SharedPreference
+    public void removeData(String key) {
+        if(sharedPreferences.contains(key)){
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            assert editor != null;
+            editor.remove(key);
+            editor.apply();
+        }
+        else{
+            return;
+        }
     }
 }

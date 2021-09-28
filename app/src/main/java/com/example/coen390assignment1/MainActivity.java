@@ -11,7 +11,7 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
     // Initialize variables
-    protected TextView textView;
+    protected TextView totalCount;
     protected int counter, countA, countB, countC;
     protected SharedPreferenceHelper sharedPreferenceHelper;
     protected Button settings, counterA, counterB, counterC, count;
@@ -27,7 +27,9 @@ public class MainActivity extends AppCompatActivity {
         counterB = (Button) findViewById(R.id.eventB);
         counterC = (Button) findViewById(R.id.eventC);
         count = (Button) findViewById(R.id.showCounts);
-        textView = findViewById(R.id.textView);
+        totalCount = findViewById(R.id.totalCount);
+
+        totalCount.setText(String.format("Total Count: %d", sharedPreferenceHelper.getTotalEvents()));
 
         // Call openSettingsActivity on click
         settings.setOnClickListener(new View.OnClickListener(){
@@ -44,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
                 if (counter < sharedPreferenceHelper.getMaxCount()){
                     counter++;
                     countA++;
-                    textView.setText("Total Count: " + counter);
+                    totalCount.setText("Total Count: " + counter);
                     sharedPreferenceHelper.saveEventValue(countA, 0);
                     sharedPreferenceHelper.saveTotalEvents(counter);
                 }
@@ -60,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
                 if (counter < sharedPreferenceHelper.getMaxCount()) {
                     counter++;
                     countB++;
-                    textView.setText("Total Count: " + counter);
+                    totalCount.setText("Total Count: " + counter);
                     sharedPreferenceHelper.saveEventValue(countB, 1);
                     sharedPreferenceHelper.saveTotalEvents(counter);
                 } else {
@@ -75,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
                 if (counter < sharedPreferenceHelper.getMaxCount()) {
                     counter++;
                     countC++;
-                    textView.setText("Total Count: " + counter);
+                    totalCount.setText("Total Count: " + counter);
                     sharedPreferenceHelper.saveEventValue(countC, 2);
                     sharedPreferenceHelper.saveTotalEvents(counter);
                 } else {
@@ -97,10 +99,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
+        totalCount = findViewById(R.id.totalCount);
+        totalCount.setText(String.format("Total Count: %d", sharedPreferenceHelper.getTotalEvents()));
 
         for (int id = 0; id < 3; id++){
             String eventName = sharedPreferenceHelper.getEventName(id);
+            // shouldn't need this
             if (eventName == null)
                 openSettingsActivity();
 
@@ -124,9 +128,10 @@ public class MainActivity extends AppCompatActivity {
 
         for (int id = 0; id < 3; id++){
             String eventName = sharedPreferenceHelper.getEventName(id);
-            if (eventName == null)
+            if (eventName == null) {
                 openSettingsActivity();
                 break;
+            }
         }
     }
     // Switch to Settings Activity Tab

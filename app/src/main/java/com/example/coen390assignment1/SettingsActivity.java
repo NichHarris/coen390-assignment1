@@ -23,12 +23,13 @@ public class SettingsActivity extends AppCompatActivity {
     protected EditText maxCount;
     protected Button saveButton;
     protected SharedPreferenceHelper sharedPreferenceHelper;
-    private boolean savedData = false;
+    private boolean hasData = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.settings_activity);
 
+        sharedPreferenceHelper = new SharedPreferenceHelper(SettingsActivity.this);
         // Add task-bar
         assert getSupportActionBar() != null;
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -39,32 +40,49 @@ public class SettingsActivity extends AppCompatActivity {
         maxCount = findViewById(R.id.editTextMaxCount);
         saveButton = findViewById(R.id.saveButton);
 
+        modifyEvents(true);
         // Save all entered data on event click
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
+                // Toast message
+                String message = "Save successful";
+
+                // Clear previous data
+                sharedPreferenceHelper.removeData("totalEvents");
+                sharedPreferenceHelper.removeData("event1");
+                sharedPreferenceHelper.removeData("event2");
+                sharedPreferenceHelper.removeData("event3");
+
                 // Get all entered strings
                 String event1 = editEvent1.getText().toString();
                 String event2 = editEvent2.getText().toString();
                 String event3 = editEvent3.getText().toString();
                 String max = maxCount.getText().toString();
 
-                sharedPreferenceHelper = new SharedPreferenceHelper(SettingsActivity.this);
-                sharedPreferenceHelper.saveEventName(event1, 0);
-                sharedPreferenceHelper.saveEventName(event2, 1);
-                sharedPreferenceHelper.saveEventName(event3, 2);
-                sharedPreferenceHelper.saveMaxCount(max);
+                if (event1.equals("") || event2.equals("") || event3.equals("") || max.equals("")){
+                    message = "Wrong or missing attribute. Nothing will be saved, staying in edit more";
+                }
+                else{
+                    sharedPreferenceHelper = new SharedPreferenceHelper(SettingsActivity.this);
+                    sharedPreferenceHelper.saveEventName(event1, 0);
+                    sharedPreferenceHelper.saveEventName(event2, 1);
+                    sharedPreferenceHelper.saveEventName(event3, 2);
+                    sharedPreferenceHelper.saveMaxCount(max);
 
-                editEvent1.setEnabled(false);
-                editEvent2.setEnabled(false);
-                editEvent3.setEnabled(false);
-                maxCount.setEnabled(false);
-                saveButton.setEnabled(false);
+                    modifyEvents(false);
+                }
 
-                Toast toast = Toast.makeText(getApplicationContext(), "Save successful", Toast.LENGTH_LONG);
+                Toast toast = Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG);
                 toast.show();
             }
         });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        modifyEvents(false);
     }
 
     // Display options menu in task-bar
@@ -79,11 +97,7 @@ public class SettingsActivity extends AppCompatActivity {
     public  boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if(id == R.id.edit_settings) {
-            editEvent1.setEnabled(true);
-            editEvent2.setEnabled(true);
-            editEvent3.setEnabled(true);
-            maxCount.setEnabled(true);
-            saveButton.setEnabled(true);
+            modifyEvents(true);
         }
         return super.onOptionsItemSelected(item);
     }
@@ -102,7 +116,15 @@ public class SettingsActivity extends AppCompatActivity {
         return true;
     }
 
-    public boolean isSavedData(){
-        return savedData;
+    public void modifyEvents(boolean enabled){
+        editEvent1.setEnabled(enabled);
+        editEvent2.setEnabled(enabled);
+        editEvent3.setEnabled(enabled);
+        maxCount.setEnabled(enabled);
+        saveButton.setEnabled(enabled);
+    }
+
+    public boolean isHasData(){
+        return hasData;
     }
 }
