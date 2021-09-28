@@ -23,7 +23,7 @@ public class SettingsActivity extends AppCompatActivity {
     protected EditText maxCount;
     protected Button saveButton;
     protected SharedPreferenceHelper sharedPreferenceHelper;
-    private boolean hasData = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,8 +39,9 @@ public class SettingsActivity extends AppCompatActivity {
         editEvent3 = findViewById(R.id.editTextCounter3);
         maxCount = findViewById(R.id.editTextMaxCount);
         saveButton = findViewById(R.id.saveButton);
+        //checkEditMode();
+        modifyEvents(sharedPreferenceHelper.getEditMode());
 
-        modifyEvents(true);
         // Save all entered data on event click
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,8 +70,9 @@ public class SettingsActivity extends AppCompatActivity {
                     sharedPreferenceHelper.saveEventName(event2, 1);
                     sharedPreferenceHelper.saveEventName(event3, 2);
                     sharedPreferenceHelper.saveMaxCount(max);
+                    sharedPreferenceHelper.setEditMode(false);
 
-                    modifyEvents(false);
+                    modifyEvents(sharedPreferenceHelper.getEditMode());
                 }
 
                 Toast toast = Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG);
@@ -82,7 +84,8 @@ public class SettingsActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        modifyEvents(false);
+        checkEditMode();
+        modifyEvents(sharedPreferenceHelper.getEditMode());
     }
 
     // Display options menu in task-bar
@@ -116,15 +119,24 @@ public class SettingsActivity extends AppCompatActivity {
         return true;
     }
 
+    public void checkEditMode(){
+        String event1 = editEvent1.getText().toString();
+        String event2 = editEvent2.getText().toString();
+        String event3 = editEvent3.getText().toString();
+        String max = maxCount.getText().toString();
+        if(event1.equals("") || event2.equals("") || event3.equals("") || max.equals("")){
+            sharedPreferenceHelper.setEditMode(true);
+        }
+        else {
+            sharedPreferenceHelper.setEditMode(false);
+        }
+    }
+
     public void modifyEvents(boolean enabled){
         editEvent1.setEnabled(enabled);
         editEvent2.setEnabled(enabled);
         editEvent3.setEnabled(enabled);
         maxCount.setEnabled(enabled);
         saveButton.setEnabled(enabled);
-    }
-
-    public boolean isHasData(){
-        return hasData;
     }
 }

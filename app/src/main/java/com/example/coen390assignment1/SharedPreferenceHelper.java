@@ -101,4 +101,22 @@ public class SharedPreferenceHelper {
             return;
         }
     }
+
+    public void setEditMode(boolean enabled){
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        assert editor != null;
+        editor.putBoolean("editMode", enabled);
+        editor.apply();
+    }
+
+    public boolean getEditMode() { return sharedPreferences.getBoolean("editMode", true); }
+
+    public void setDataActivityMode(boolean enabled){
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        assert editor != null;
+        editor.putBoolean("dataActivityMode", enabled);
+        editor.apply();
+    }
+
+    public boolean getDataActivityMode() { return sharedPreferences.getBoolean("dataActivityMode", false); }
 }

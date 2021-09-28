@@ -14,7 +14,6 @@ public class DataActivity extends AppCompatActivity {
     // Initialize variables
     protected SharedPreferenceHelper sharedPreferenceHelper;
     protected TextView eventName;
-    private boolean isDefaultMode = true;
     private String[] defaultNames = {"Counter 1", "Counter 2", "Counter 3"};
 
     @Override
@@ -27,7 +26,7 @@ public class DataActivity extends AppCompatActivity {
 
         sharedPreferenceHelper = new SharedPreferenceHelper(DataActivity.this);
 
-        if (isDefaultMode){
+        if (sharedPreferenceHelper.getDataActivityMode()){
             setEventData(sharedPreferenceHelper.getEventName(0), sharedPreferenceHelper.getEventName(1), sharedPreferenceHelper.getEventName(2));
         }
         else {
@@ -39,7 +38,7 @@ public class DataActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        if (isDefaultMode){
+        if (sharedPreferenceHelper.getDataActivityMode()){
             setEventData(sharedPreferenceHelper.getEventName(0), sharedPreferenceHelper.getEventName(1), sharedPreferenceHelper.getEventName(2));
         }
         else {
@@ -73,15 +72,15 @@ public class DataActivity extends AppCompatActivity {
     public  boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if(id == R.id.toggle_event_names) {
-            if (isDefaultMode) {
+            if (sharedPreferenceHelper.getDataActivityMode()) {
                 // swap mode set
-                isDefaultMode = false;
+                sharedPreferenceHelper.setDataActivityMode(false);
                 // swap to default event names
                 setEventData(defaultNames[0], defaultNames[1], defaultNames[2]);
             }
             else {
                 // swap mode set
-                isDefaultMode = true;
+                sharedPreferenceHelper.setDataActivityMode(true);
                 // swap to event names used in settings
                 setEventData(sharedPreferenceHelper.getEventName(0), sharedPreferenceHelper.getEventName(1), sharedPreferenceHelper.getEventName(2));
 
