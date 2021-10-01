@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Pair;
 import android.view.View;
@@ -32,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         sharedPreferenceHelper = new SharedPreferenceHelper(MainActivity.this);
+        dbHelper = new DatabaseHelper(this, Config.DATABASE_NAME, null, Config.DATABASE_VERSION);
         settings = (Button) findViewById(R.id.settingsButton);
         counterA = (Button) findViewById(R.id.eventA);
         counterB = (Button) findViewById(R.id.eventB);
@@ -109,7 +111,6 @@ public class MainActivity extends AppCompatActivity {
         totalCount = findViewById(R.id.totalCount);
         totalCount.setText(String.format("Total Count: %d", sharedPreferenceHelper.getTotalEvents()));
 
-        dbHelper = new DatabaseHelper(this, Config.DATABASE_NAME, null, Config.DATABASE_VERSION);
         for (int id = 0; id < 3; id++){
             String eventName = sharedPreferenceHelper.getEventName(id);
             // shouldn't need this

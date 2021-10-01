@@ -91,7 +91,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public void clearDb(String name) {
         try (SQLiteDatabase db = this.getWritableDatabase()) {
-            String DROP_TABLE = String.format("DELETE FROM %s WHERE %s = '1' OR %s = '2' OR %s = '3';", Config.COUNTER_TABLE_NAME, "1", "2", "3");
+            String DROP_TABLE = String.format("DELETE FROM %s WHERE %s = '1' OR %s = '2' OR %s = '3';", Config.COUNTER_TABLE_NAME, Config.COLUMN_COUNTER_NAME, "name", "name");
             db.execSQL(DROP_TABLE);
         } catch (SQLiteException e) {
             Toast.makeText(context, "Operation failed: " + e, Toast.LENGTH_LONG).show();

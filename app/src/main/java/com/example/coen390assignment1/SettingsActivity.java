@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.autofill.AutofillManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -32,7 +33,6 @@ public class SettingsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.settings_activity);
-
         sharedPreferenceHelper = new SharedPreferenceHelper(SettingsActivity.this);
         dbHelper = new DatabaseHelper(this, Config.DATABASE_NAME, null, Config.DATABASE_VERSION);
         // Add task-bar
@@ -53,6 +53,9 @@ public class SettingsActivity extends AppCompatActivity {
             public void onClick(View v){
                 // Toast message
                 String message = "Save successful";
+
+                // Clear the DB
+                dbHelper.clearDb(Config.COUNTER_TABLE_NAME);
 
                 // Clear previous data
                 sharedPreferenceHelper.removeData("totalEvents");
@@ -79,7 +82,6 @@ public class SettingsActivity extends AppCompatActivity {
 
                     modifyEvents(sharedPreferenceHelper.getEditMode());
                 }
-                dbHelper.clearDb(Config.COUNTER_TABLE_NAME);
                 Toast toast = Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG);
                 toast.show();
             }
