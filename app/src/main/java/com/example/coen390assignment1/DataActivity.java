@@ -38,10 +38,10 @@ public class DataActivity extends AppCompatActivity {
         sharedPreferenceHelper = new SharedPreferenceHelper(DataActivity.this);
         dbHelper = new DatabaseHelper(this, Config.DATABASE_NAME, null, Config.DATABASE_VERSION);
         if (sharedPreferenceHelper.getDataActivityMode()){
-            setEventData(sharedPreferenceHelper.getEventName(0), sharedPreferenceHelper.getEventName(1), sharedPreferenceHelper.getEventName(2));
+            setEventData(sharedPreferenceHelper.getEventName(0), sharedPreferenceHelper.getEventName(1), sharedPreferenceHelper.getEventName(2), true);
         }
         else {
-            setEventData(defaultNames[0], defaultNames[1], defaultNames[2]);
+            setEventData(defaultNames[0], defaultNames[1], defaultNames[2], false);
         }
     }
 
@@ -50,14 +50,14 @@ public class DataActivity extends AppCompatActivity {
         super.onResume();
 
         if (sharedPreferenceHelper.getDataActivityMode()){
-            setEventData(sharedPreferenceHelper.getEventName(0), sharedPreferenceHelper.getEventName(1), sharedPreferenceHelper.getEventName(2));
+            setEventData(sharedPreferenceHelper.getEventName(0), sharedPreferenceHelper.getEventName(1), sharedPreferenceHelper.getEventName(2), true);
         }
         else {
-            setEventData(defaultNames[0], defaultNames[1], defaultNames[2]);
+            setEventData(defaultNames[0], defaultNames[1], defaultNames[2], false);
         }
     }
 
-    public void setEventData(String event1, String event2, String event3){
+    public void setEventData(String event1, String event2, String event3, boolean mode){
         eventName = (TextView) findViewById(R.id.data_counterA);
         eventName.setText(String.format("%s: %d events", event1, sharedPreferenceHelper.getEventValue(0)));
 
@@ -72,7 +72,7 @@ public class DataActivity extends AppCompatActivity {
 
         historyList = (ListView) findViewById(R.id.history_list);
 
-        ArrayAdapter arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, verifyList(dbHelper.getAllCounters()));
+        ArrayAdapter arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, verifyList(dbHelper.getAllCounters(), mode));
         historyList.setAdapter(arrayAdapter);
     }
 
@@ -92,14 +92,13 @@ public class DataActivity extends AppCompatActivity {
                 // swap mode set
                 sharedPreferenceHelper.setDataActivityMode(false);
                 // swap to default event names
-                setEventData(defaultNames[0], defaultNames[1], defaultNames[2]);
+                setEventData(defaultNames[0], defaultNames[1], defaultNames[2], false);
             }
             else {
                 // swap mode set
                 sharedPreferenceHelper.setDataActivityMode(true);
                 // swap to event names used in settings
-                setEventData(sharedPreferenceHelper.getEventName(0), sharedPreferenceHelper.getEventName(1), sharedPreferenceHelper.getEventName(2));
-
+                setEventData(sharedPreferenceHelper.getEventName(0), sharedPreferenceHelper.getEventName(1), sharedPreferenceHelper.getEventName(2), true);
             }
         }
         return super.onOptionsItemSelected(item);
@@ -112,14 +111,9 @@ public class DataActivity extends AppCompatActivity {
         return true;
     }
 
-    private List<String> verifyList(List<Pair<String, Integer>> iList) {
+    private List<String> verifyList(List<Pair<String, Integer>> iList, boolean mode) {
         List<String> returnList = new ArrayList<>();
-        if (!sharedPreferenceHelper.getDataActivityMode()){
-            for (int i = 0; i < iList.size(); i++) {
-                returnList.add(String.format("%s %d", iList.get(i).first, iList.get(i).second));
-            }
-        }
-        else {
+        if (mode){
             for (int i = 0; i < iList.size(); i++) {
                 switch (iList.get(i).first) {
                     case "1":
@@ -132,6 +126,11 @@ public class DataActivity extends AppCompatActivity {
                         returnList.add(String.format("%s %d", sharedPreferenceHelper.returnName(2), iList.get(i).second));
                         break;
                 }
+            }
+        }
+        else {
+            for (int i = 0; i < iList.size(); i++) {
+                returnList.add(String.format("%s %d", iList.get(i).first, iList.get(i).second));
             }
         }
         return returnList;
