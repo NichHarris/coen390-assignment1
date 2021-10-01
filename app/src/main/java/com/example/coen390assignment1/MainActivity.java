@@ -2,31 +2,43 @@ package com.example.coen390assignment1;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Pair;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.coen390assignment1.Database.Config;
+import com.example.coen390assignment1.Database.DatabaseHelper;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     // Initialize variables
     protected TextView totalCount;
     protected SharedPreferenceHelper sharedPreferenceHelper;
+    protected DatabaseHelper dbHelper;
     protected Button settings, counterA, counterB, counterC, count;
+    protected ListView historyList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         sharedPreferenceHelper = new SharedPreferenceHelper(MainActivity.this);
-
         settings = (Button) findViewById(R.id.settingsButton);
         counterA = (Button) findViewById(R.id.eventA);
         counterB = (Button) findViewById(R.id.eventB);
         counterC = (Button) findViewById(R.id.eventC);
         count = (Button) findViewById(R.id.showCounts);
         totalCount = findViewById(R.id.totalCount);
+        historyList = (ListView) findViewById(R.id.history_list);
 
         totalCount.setText(String.format("Total Count: %d", sharedPreferenceHelper.getTotalEvents()));
 
@@ -45,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
                 if (sharedPreferenceHelper.getTotalEvents() < sharedPreferenceHelper.getMaxCount()){
                     sharedPreferenceHelper.incrementTotalEvents();
                     sharedPreferenceHelper.incrementEventValue(0);
+                    dbHelper.insertCounter("1", sharedPreferenceHelper.getEventValue(0));
                     totalCount.setText(String.format("Total Count: %d", sharedPreferenceHelper.getTotalEvents()));
                 }
                 else {
@@ -59,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
                 if (sharedPreferenceHelper.getTotalEvents() < sharedPreferenceHelper.getMaxCount()) {
                     sharedPreferenceHelper.incrementTotalEvents();
                     sharedPreferenceHelper.incrementEventValue(1);
+                    dbHelper.insertCounter("2", sharedPreferenceHelper.getEventValue(1));
                     totalCount.setText(String.format("Total Count: %d", sharedPreferenceHelper.getTotalEvents()));
                 } else {
                     maxCountMessage();
@@ -72,6 +86,7 @@ public class MainActivity extends AppCompatActivity {
                 if (sharedPreferenceHelper.getTotalEvents() < sharedPreferenceHelper.getMaxCount()) {
                     sharedPreferenceHelper.incrementTotalEvents();
                     sharedPreferenceHelper.incrementEventValue(2);
+                    dbHelper.insertCounter("3", sharedPreferenceHelper.getEventValue(2));
                     totalCount.setText(String.format("Total Count: %d", sharedPreferenceHelper.getTotalEvents()));
                 } else {
                     maxCountMessage();
@@ -86,7 +101,6 @@ public class MainActivity extends AppCompatActivity {
                 openDataActivity();
             }
         });
-
     }
 
     @Override
@@ -95,6 +109,7 @@ public class MainActivity extends AppCompatActivity {
         totalCount = findViewById(R.id.totalCount);
         totalCount.setText(String.format("Total Count: %d", sharedPreferenceHelper.getTotalEvents()));
 
+        dbHelper = new DatabaseHelper(this, Config.DATABASE_NAME, null, Config.DATABASE_VERSION);
         for (int id = 0; id < 3; id++){
             String eventName = sharedPreferenceHelper.getEventName(id);
             // shouldn't need this
@@ -119,7 +134,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-        for (int id = 0; id < 3; id++){
+        for (int id = 0; id < 3; id++) {
             String eventName = sharedPreferenceHelper.getEventName(id);
             if (eventName == null) {
                 openSettingsActivity();
@@ -127,6 +142,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
+
     // Switch to Settings Activity Tab
     public void openSettingsActivity() {
         Intent intent = new Intent(this, SettingsActivity.class);

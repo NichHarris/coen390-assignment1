@@ -3,18 +3,29 @@ package com.example.coen390assignment1;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Pair;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.coen390assignment1.Database.Config;
+import com.example.coen390assignment1.Database.DatabaseHelper;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class DataActivity extends AppCompatActivity {
 
     // Initialize variables
     protected SharedPreferenceHelper sharedPreferenceHelper;
+    protected DatabaseHelper dbHelper;
     protected TextView eventName;
-    private String[] defaultNames = {"Counter 1", "Counter 2", "Counter 3"};
+    protected ListView historyList;
+    private final String[] defaultNames = {"Counter 1", "Counter 2", "Counter 3"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +36,7 @@ public class DataActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         sharedPreferenceHelper = new SharedPreferenceHelper(DataActivity.this);
-
+        dbHelper = new DatabaseHelper(this, Config.DATABASE_NAME, null, Config.DATABASE_VERSION);
         if (sharedPreferenceHelper.getDataActivityMode()){
             setEventData(sharedPreferenceHelper.getEventName(0), sharedPreferenceHelper.getEventName(1), sharedPreferenceHelper.getEventName(2));
         }
@@ -58,6 +69,11 @@ public class DataActivity extends AppCompatActivity {
 
         eventName = (TextView) findViewById(R.id.total_events);
         eventName.setText(String.format("Total events: %d", sharedPreferenceHelper.getTotalEvents()));
+
+        historyList = (ListView) findViewById(R.id.history_list);
+
+        ArrayAdapter arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, verifyList(dbHelper.getAllCounters()));
+        historyList.setAdapter(arrayAdapter);
     }
 
     // Display options menu in task-bar
@@ -94,6 +110,31 @@ public class DataActivity extends AppCompatActivity {
     public boolean onSupportNavigateUp(){
         finish();
         return true;
+    }
+
+    private List<String> verifyList(List<Pair<String, Integer>> iList) {
+        List<String> returnList = new ArrayList<>();
+        if (!sharedPreferenceHelper.getDataActivityMode()){
+            for (int i = 0; i < iList.size(); i++) {
+                returnList.add(String.format("%s %d", iList.get(i).first, iList.get(i).second));
+            }
+        }
+        else {
+            for (int i = 0; i < iList.size(); i++) {
+                switch (iList.get(i).first) {
+                    case "1":
+                        returnList.add(String.format("%s %d", sharedPreferenceHelper.returnName(0), iList.get(i).second));
+                        break;
+                    case "2":
+                        returnList.add(String.format("%s %d", sharedPreferenceHelper.returnName(1), iList.get(i).second));
+                        break;
+                    case "3":
+                        returnList.add(String.format("%s %d", sharedPreferenceHelper.returnName(2), iList.get(i).second));
+                        break;
+                }
+            }
+        }
+        return returnList;
     }
 }
 

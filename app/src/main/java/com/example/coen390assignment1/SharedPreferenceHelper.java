@@ -9,6 +9,7 @@ public class SharedPreferenceHelper {
         sharedPreferences = context.getSharedPreferences("EventPreference", Context.MODE_PRIVATE);
     }
 
+    // Verify the input max count is within range and add it to the SharedPreference
     public void saveMaxCount(String max){
         SharedPreferences.Editor editor = sharedPreferences.edit();
         int maxInt = Integer.parseInt(max);
@@ -25,11 +26,13 @@ public class SharedPreferenceHelper {
         editor.apply();
     }
 
+    // Return the assigned value to maxCount
     public int getMaxCount() {
         return sharedPreferences.getInt("maxCount", 5);
     }
 
-    public int incrementTotalEvents(){
+    // Increment the stored value of totalEvents
+    public void incrementTotalEvents(){
         SharedPreferences.Editor editor = sharedPreferences.edit();
         int value = sharedPreferences.getInt("totalEvents", 0);
         value++;
@@ -37,20 +40,14 @@ public class SharedPreferenceHelper {
         assert editor != null;
         editor.putInt("totalEvents", value);
         editor.apply();
-        return value;
     }
 
-    public void saveTotalEvents(int value){
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        assert editor != null;
-        editor.putInt("totalEvents", value);
-        editor.apply();
-    }
-
+    // Return the assigned value of totalEvents, or a default of 0 if not set
     public int getTotalEvents(){
         return sharedPreferences.getInt("totalEvents", 0);
     }
 
+    // Save the name of one of the counters
     public void saveEventName(String name, int eventId){
         SharedPreferences.Editor editor = sharedPreferences.edit();
         assert editor != null;
@@ -58,17 +55,11 @@ public class SharedPreferenceHelper {
         editor.apply();
     }
 
+    // Return the name assigned to a counter
     public String getEventName(int eventId){ return sharedPreferences.getString(getEventType(eventId), null); }
 
-    public void saveEventValue(int value, int eventId){
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-
-        assert editor != null;
-        editor.putInt(getEventCounterName(eventId), value);
-        editor.apply();
-    }
-
-    public int incrementEventValue(int eventId) {
+    // Increment the store value of a counter
+    public void incrementEventValue(int eventId) {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         String eventName = getEventCounterName(eventId);
         int value = sharedPreferences.getInt(eventName, 0 );
@@ -77,14 +68,15 @@ public class SharedPreferenceHelper {
         assert editor != null;
         editor.putInt(eventName, value);
         editor.apply();
-        return  value;
     }
 
+    // Return the assigned value of a counter
     public int getEventValue(int eventId){
         return sharedPreferences.getInt(getEventCounterName(eventId), 0);
     }
 
-    public String getEventCounterName(int eventId){
+    // Returns string of a counters values key
+    private String getEventCounterName(int eventId){
         String eventCounterName = null;
         switch (eventId) {
             case 0:
@@ -101,7 +93,8 @@ public class SharedPreferenceHelper {
         return  eventCounterName;
     }
 
-    public String getEventType(int eventId){
+    // Returns the string of a counters names key
+    private String getEventType(int eventId){
         String eventName = null;
         switch (eventId){
             case 0:
@@ -126,11 +119,9 @@ public class SharedPreferenceHelper {
             editor.remove(key);
             editor.apply();
         }
-        else{
-            return;
-        }
     }
 
+    // Set the state for the editMode
     public void setEditMode(boolean enabled){
         SharedPreferences.Editor editor = sharedPreferences.edit();
         assert editor != null;
@@ -138,8 +129,10 @@ public class SharedPreferenceHelper {
         editor.apply();
     }
 
+    // Get the state for the editMode
     public boolean getEditMode() { return sharedPreferences.getBoolean("editMode", true); }
 
+    // Set the state for the dataActivityMode
     public void setDataActivityMode(boolean enabled){
         SharedPreferences.Editor editor = sharedPreferences.edit();
         assert editor != null;
@@ -147,5 +140,23 @@ public class SharedPreferenceHelper {
         editor.apply();
     }
 
+    // Get the state for the dataActivityMode: FALSE is showing the set counter names, TRUE shows just the counter number
     public boolean getDataActivityMode() { return sharedPreferences.getBoolean("dataActivityMode", false); }
+
+    public String returnName(int eventId) {
+        if (getDataActivityMode()) {
+            return getEventName(eventId);
+        }
+        else {
+            switch (eventId) {
+                case 0:
+                    return "1";
+                case 1:
+                    return "2";
+                case 2:
+                    return "3";
+            }
+        }
+        return "Error";
+    }
 }

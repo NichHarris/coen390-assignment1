@@ -14,6 +14,9 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.preference.PreferenceFragmentCompat;
 
+import com.example.coen390assignment1.Database.Config;
+import com.example.coen390assignment1.Database.DatabaseHelper;
+
 public class SettingsActivity extends AppCompatActivity {
 
     // Initialize variables
@@ -23,6 +26,7 @@ public class SettingsActivity extends AppCompatActivity {
     protected EditText maxCount;
     protected Button saveButton;
     protected SharedPreferenceHelper sharedPreferenceHelper;
+    protected DatabaseHelper dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +34,7 @@ public class SettingsActivity extends AppCompatActivity {
         setContentView(R.layout.settings_activity);
 
         sharedPreferenceHelper = new SharedPreferenceHelper(SettingsActivity.this);
+        dbHelper = new DatabaseHelper(this, Config.DATABASE_NAME, null, Config.DATABASE_VERSION);
         // Add task-bar
         assert getSupportActionBar() != null;
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -74,7 +79,7 @@ public class SettingsActivity extends AppCompatActivity {
 
                     modifyEvents(sharedPreferenceHelper.getEditMode());
                 }
-
+                dbHelper.clearDb(Config.COUNTER_TABLE_NAME);
                 Toast toast = Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG);
                 toast.show();
             }
