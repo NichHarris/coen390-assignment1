@@ -24,9 +24,7 @@ public class SharedPreferenceHelper {
     }
 
     // Return the assigned value to maxCount
-    public int getMaxCount() {
-        return sharedPreferences.getInt("maxCount", 5);
-    }
+    public int getMaxCount() { return sharedPreferences.getInt("maxCount", 5); }
 
     // Increment the stored value of totalEvents
     public void incrementTotalEvents(){
@@ -40,9 +38,7 @@ public class SharedPreferenceHelper {
     }
 
     // Return the assigned value of totalEvents, or a default of 0 if not set
-    public int getTotalEvents(){
-        return sharedPreferences.getInt("totalEvents", 0);
-    }
+    public int getTotalEvents(){ return sharedPreferences.getInt("totalEvents", 0); }
 
     // Save the name of one of the counters
     public void saveEventName(String name, int eventId){

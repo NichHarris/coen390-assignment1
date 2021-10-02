@@ -159,6 +159,7 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    // Output message when max count has been reached
     public void maxCountMessage() {
         Toast toast = Toast.makeText(getApplicationContext(), "Max count achieved", Toast.LENGTH_LONG);
         toast.show();

@@ -73,7 +73,7 @@ public class SettingsActivity extends AppCompatActivity {
                 String max = maxCount.getText().toString();
 
                 if (event1.equals("") || event2.equals("") || event3.equals("") || max.equals("")) {
-                    message = "Wrong or missing attribute. Nothing will be saved, staying in edit more";
+                    message = "Wrong or missing attribute. Nothing will be saved, staying in edit mode";
                 }
                 else{
                     sharedPreferenceHelper = new SharedPreferenceHelper(SettingsActivity.this);
