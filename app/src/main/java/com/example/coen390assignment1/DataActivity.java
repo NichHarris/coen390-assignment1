@@ -121,13 +121,13 @@ public class DataActivity extends AppCompatActivity {
             for (int i = 0; i < iList.size(); i++) {
                 switch (iList.get(i).first) {
                     case "1":
-                        returnList.add(String.format("%s %d", sharedPreferenceHelper.returnName(0), iList.get(i).second));
+                        returnList.add(String.format("%s %d", sharedPreferenceHelper.getEventName(0), iList.get(i).second));
                         break;
                     case "2":
-                        returnList.add(String.format("%s %d", sharedPreferenceHelper.returnName(1), iList.get(i).second));
+                        returnList.add(String.format("%s %d", sharedPreferenceHelper.getEventName(1), iList.get(i).second));
                         break;
                     case "3":
-                        returnList.add(String.format("%s %d", sharedPreferenceHelper.returnName(2), iList.get(i).second));
+                        returnList.add(String.format("%s %d", sharedPreferenceHelper.getEventName(2), iList.get(i).second));
                         break;
                 }
             }
