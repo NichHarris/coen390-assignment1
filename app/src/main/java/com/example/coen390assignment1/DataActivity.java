@@ -35,8 +35,11 @@ public class DataActivity extends AppCompatActivity {
         assert getSupportActionBar() != null;
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        // Initialize shared pref helper
         sharedPreferenceHelper = new SharedPreferenceHelper(DataActivity.this);
+        // Initialize db helper
         dbHelper = new DatabaseHelper(this, Config.DATABASE_NAME, null, Config.DATABASE_VERSION);
+        
         if (sharedPreferenceHelper.getDataActivityMode()){
             setEventData(sharedPreferenceHelper.getEventName(0), sharedPreferenceHelper.getEventName(1), sharedPreferenceHelper.getEventName(2), true);
         }

@@ -32,8 +32,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        // Initialize shared pref helper
         sharedPreferenceHelper = new SharedPreferenceHelper(MainActivity.this);
+        // Initialize db helper
         dbHelper = new DatabaseHelper(this, Config.DATABASE_NAME, null, Config.DATABASE_VERSION);
+
         settings = (Button) findViewById(R.id.settingsButton);
         counterA = (Button) findViewById(R.id.eventA);
         counterB = (Button) findViewById(R.id.eventB);
@@ -41,7 +44,6 @@ public class MainActivity extends AppCompatActivity {
         count = (Button) findViewById(R.id.showCounts);
         totalCount = findViewById(R.id.totalCount);
         historyList = (ListView) findViewById(R.id.history_list);
-
         totalCount.setText(String.format("Total Count: %d", sharedPreferenceHelper.getTotalEvents()));
 
         // Call openSettingsActivity on click
@@ -52,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // Increment Counter
+        // Increment Counter 1
         counterA.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -68,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        // Increment Counter 2
         counterB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -82,6 +85,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        // Increment Counter 3
         counterC.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -100,6 +104,7 @@ public class MainActivity extends AppCompatActivity {
         count.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                sharedPreferenceHelper.setEditMode(false);
                 openDataActivity();
             }
         });
@@ -113,9 +118,6 @@ public class MainActivity extends AppCompatActivity {
 
         for (int id = 0; id < 3; id++){
             String eventName = sharedPreferenceHelper.getEventName(id);
-            // shouldn't need this
-            if (eventName == null)
-                openSettingsActivity();
 
             switch (id){
                 case 0:
@@ -138,6 +140,7 @@ public class MainActivity extends AppCompatActivity {
         for (int id = 0; id < 3; id++) {
             String eventName = sharedPreferenceHelper.getEventName(id);
             if (eventName == null) {
+                sharedPreferenceHelper.setEditMode(true);
                 openSettingsActivity();
                 break;
             }

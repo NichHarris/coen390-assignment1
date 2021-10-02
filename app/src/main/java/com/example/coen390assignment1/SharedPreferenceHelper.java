@@ -51,12 +51,12 @@ public class SharedPreferenceHelper {
     public void saveEventName(String name, int eventId){
         SharedPreferences.Editor editor = sharedPreferences.edit();
         assert editor != null;
-        editor.putString(getEventType(eventId), name);
+        editor.putString(getCounterNumber(eventId), name);
         editor.apply();
     }
 
     // Return the name assigned to a counter
-    public String getEventName(int eventId){ return sharedPreferences.getString(getEventType(eventId), null); }
+    public String getEventName(int eventId){ return sharedPreferences.getString(getCounterNumber(eventId), null); }
 
     // Increment the store value of a counter
     public void incrementEventValue(int eventId) {
@@ -94,7 +94,7 @@ public class SharedPreferenceHelper {
     }
 
     // Returns the string of a counters names key
-    private String getEventType(int eventId){
+    private String getCounterNumber(int eventId){
         String eventName = null;
         switch (eventId){
             case 0:
@@ -143,6 +143,7 @@ public class SharedPreferenceHelper {
     // Get the state for the dataActivityMode: FALSE is showing the set counter names, TRUE shows just the counter number
     public boolean getDataActivityMode() { return sharedPreferences.getBoolean("dataActivityMode", true); }
 
+    // Return name or a value 1, 2, 3 for the counter
     public String returnName(int eventId) {
         if (getDataActivityMode()) {
             return getEventName(eventId);
