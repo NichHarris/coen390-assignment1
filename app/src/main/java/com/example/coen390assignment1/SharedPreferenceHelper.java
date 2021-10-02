@@ -141,7 +141,7 @@ public class SharedPreferenceHelper {
     }
 
     // Get the state for the dataActivityMode: FALSE is showing the set counter names, TRUE shows just the counter number
-    public boolean getDataActivityMode() { return sharedPreferences.getBoolean("dataActivityMode", false); }
+    public boolean getDataActivityMode() { return sharedPreferences.getBoolean("dataActivityMode", true); }
 
     public String returnName(int eventId) {
         if (getDataActivityMode()) {

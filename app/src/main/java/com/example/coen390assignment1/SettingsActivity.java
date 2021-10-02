@@ -121,7 +121,7 @@ public class SettingsActivity extends AppCompatActivity {
 
     // Navigate back to homepage on task-bar return
     @Override
-    public boolean onSupportNavigateUp(){
+    public boolean onNavigateUp(){
         finish();
         return true;
     }
