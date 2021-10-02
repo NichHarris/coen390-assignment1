@@ -1,3 +1,7 @@
+// COEN 390 - Assignment 1
+// Nicholas Harris - 40111093
+// harris.nicholas1998@gmail.com
+
 package com.example.coen390assignment1.Database;
 
 public class Config {
