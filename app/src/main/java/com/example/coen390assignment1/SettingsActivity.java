@@ -53,7 +53,7 @@ public class SettingsActivity extends AppCompatActivity {
         // Save all entered data on event click
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
+            public void onClick(View v) {
                 // Toast message
                 String message = "Save successful";
 
@@ -72,7 +72,7 @@ public class SettingsActivity extends AppCompatActivity {
                 String event3 = editEvent3.getText().toString();
                 String max = maxCount.getText().toString();
 
-                if (event1.equals("") || event2.equals("") || event3.equals("") || max.equals("")){
+                if (event1.equals("") || event2.equals("") || event3.equals("") || max.equals("")) {
                     message = "Wrong or missing attribute. Nothing will be saved, staying in edit more";
                 }
                 else{
@@ -127,13 +127,13 @@ public class SettingsActivity extends AppCompatActivity {
 
     // Navigate back to homepage on task-bar return
     @Override
-    public boolean onNavigateUp(){
+    public boolean onNavigateUp() {
         finish();
         return true;
     }
 
     // Set text boxes and buttons to enabled/disabled
-    public void modifyEvents(boolean enabled){
+    public void modifyEvents(boolean enabled) {
         editEvent1.setEnabled(enabled);
         editEvent2.setEnabled(enabled);
         editEvent3.setEnabled(enabled);

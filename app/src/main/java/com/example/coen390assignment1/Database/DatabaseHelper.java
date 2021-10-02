@@ -29,7 +29,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
 
-        // Build table
+        // Build table using an SQL Query
         String CREATE_TABLE_COUNTER = String.format("CREATE TABLE %s (%s VARCHAR(20), %s INT);", Config.COUNTER_TABLE_NAME, Config.COLUMN_COUNTER_NAME, Config.COLUMN_COUNTER_VALUE) ;
         db.execSQL(CREATE_TABLE_COUNTER);
 
@@ -40,6 +40,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
+    // Add a counter name and value to the DB
     public long insertCounter(String name, int value) {
         long newId = -1;
         SQLiteDatabase db = this.getWritableDatabase();
@@ -59,6 +60,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return newId;
     }
 
+    // Return all data stored in the DB as a List of tuples
     public List<Pair<String, Integer>> getAllCounters() {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = null;
@@ -89,9 +91,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return Collections.emptyList();
     }
 
+    // Clear the counter rows from the DB using an SQL Query
     public void clearDb(String name) {
         try (SQLiteDatabase db = this.getWritableDatabase()) {
-            String DROP_TABLE = String.format("DELETE FROM %s WHERE %s = '1' OR %s = '2' OR %s = '3';", Config.COUNTER_TABLE_NAME, Config.COLUMN_COUNTER_NAME, "name", "name");
+            String DROP_TABLE = String.format("DELETE FROM %s WHERE %s = '1' OR %s = '2' OR %s = '3';", Config.COUNTER_TABLE_NAME, Config.COLUMN_COUNTER_NAME, Config.COLUMN_COUNTER_NAME, Config.COLUMN_COUNTER_NAME);
             db.execSQL(DROP_TABLE);
         } catch (SQLiteException e) {
             Toast.makeText(context, "Operation failed: " + e, Toast.LENGTH_LONG).show();

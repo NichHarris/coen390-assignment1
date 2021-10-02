@@ -39,8 +39,8 @@ public class DataActivity extends AppCompatActivity {
         sharedPreferenceHelper = new SharedPreferenceHelper(DataActivity.this);
         // Initialize db helper
         dbHelper = new DatabaseHelper(this, Config.DATABASE_NAME, null, Config.DATABASE_VERSION);
-        
-        if (sharedPreferenceHelper.getDataActivityMode()){
+
+        if (sharedPreferenceHelper.getDataActivityMode()) {
             setEventData(sharedPreferenceHelper.getEventName(0), sharedPreferenceHelper.getEventName(1), sharedPreferenceHelper.getEventName(2), true);
         }
         else {
@@ -52,7 +52,7 @@ public class DataActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        if (sharedPreferenceHelper.getDataActivityMode()){
+        if (sharedPreferenceHelper.getDataActivityMode()) {
             setEventData(sharedPreferenceHelper.getEventName(0), sharedPreferenceHelper.getEventName(1), sharedPreferenceHelper.getEventName(2), true);
         }
         else {
@@ -60,7 +60,7 @@ public class DataActivity extends AppCompatActivity {
         }
     }
 
-    public void setEventData(String event1, String event2, String event3, boolean mode){
+    public void setEventData(String event1, String event2, String event3, boolean mode) {
         eventName = (TextView) findViewById(R.id.data_counterA);
         eventName.setText(String.format("%s: %d events", event1, sharedPreferenceHelper.getEventValue(0)));
 

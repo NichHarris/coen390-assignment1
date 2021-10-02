@@ -14,14 +14,11 @@ public class SharedPreferenceHelper {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         int maxInt = Integer.parseInt(max);
         assert editor != null;
-        if (maxInt > 200){
+        if (maxInt > 200) {
             editor.putInt("maxCount", 200);
         }
-        else if(maxInt < 5){
-            editor.putInt("maxCount", 5);
-        }
-        else{
-            editor.putInt("maxCount", maxInt);
+        else {
+            editor.putInt("maxCount", Math.max(maxInt, 5));
         }
         editor.apply();
     }
@@ -71,12 +68,10 @@ public class SharedPreferenceHelper {
     }
 
     // Return the assigned value of a counter
-    public int getEventValue(int eventId){
-        return sharedPreferences.getInt(getEventCounterName(eventId), 0);
-    }
+    public int getEventValue(int eventId){ return sharedPreferences.getInt(getEventCounterName(eventId), 0); }
 
     // Returns string of a counters values key
-    private String getEventCounterName(int eventId){
+    private String getEventCounterName(int eventId) {
         String eventCounterName = null;
         switch (eventId) {
             case 0:
@@ -94,7 +89,7 @@ public class SharedPreferenceHelper {
     }
 
     // Returns the string of a counters names key
-    private String getCounterNumber(int eventId){
+    private String getCounterNumber(int eventId) {
         String eventName = null;
         switch (eventId){
             case 0:
@@ -113,7 +108,7 @@ public class SharedPreferenceHelper {
 
     // Remove a key/value pair from the SharedPreference
     public void removeData(String key) {
-        if(sharedPreferences.contains(key)){
+        if(sharedPreferences.contains(key)) {
             SharedPreferences.Editor editor = sharedPreferences.edit();
             assert editor != null;
             editor.remove(key);
@@ -133,7 +128,7 @@ public class SharedPreferenceHelper {
     public boolean getEditMode() { return sharedPreferences.getBoolean("editMode", true); }
 
     // Set the state for the dataActivityMode
-    public void setDataActivityMode(boolean enabled){
+    public void setDataActivityMode(boolean enabled) {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         assert editor != null;
         editor.putBoolean("dataActivityMode", enabled);

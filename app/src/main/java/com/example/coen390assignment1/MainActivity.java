@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
         totalCount.setText(String.format("Total Count: %d", sharedPreferenceHelper.getTotalEvents()));
 
         // Call openSettingsActivity on click
-        settings.setOnClickListener(new View.OnClickListener(){
+        settings.setOnClickListener(new View.OnClickListener() {
             @Override
             public  void onClick(View v){
                 openSettingsActivity();
@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
         counterA.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (sharedPreferenceHelper.getTotalEvents() < sharedPreferenceHelper.getMaxCount()){
+                if (sharedPreferenceHelper.getTotalEvents() < sharedPreferenceHelper.getMaxCount()) {
                     sharedPreferenceHelper.incrementTotalEvents();
                     sharedPreferenceHelper.incrementEventValue(0);
                     dbHelper.insertCounter("1", sharedPreferenceHelper.getEventValue(0));
@@ -116,7 +116,7 @@ public class MainActivity extends AppCompatActivity {
         totalCount = findViewById(R.id.totalCount);
         totalCount.setText(String.format("Total Count: %d", sharedPreferenceHelper.getTotalEvents()));
 
-        for (int id = 0; id < 3; id++){
+        for (int id = 0; id < 3; id++) {
             String eventName = sharedPreferenceHelper.getEventName(id);
 
             switch (id){
@@ -159,7 +159,7 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void maxCountMessage(){
+    public void maxCountMessage() {
         Toast toast = Toast.makeText(getApplicationContext(), "Max count achieved", Toast.LENGTH_LONG);
         toast.show();
     }
