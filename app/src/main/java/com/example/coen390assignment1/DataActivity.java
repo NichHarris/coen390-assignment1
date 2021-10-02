@@ -6,11 +6,9 @@ import android.os.Bundle;
 import android.util.Pair;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.coen390assignment1.Database.Config;
 import com.example.coen390assignment1.Database.DatabaseHelper;
@@ -75,7 +73,7 @@ public class DataActivity extends AppCompatActivity {
 
         historyList = (ListView) findViewById(R.id.history_list);
 
-        ArrayAdapter arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, verifyList(dbHelper.getAllCounters(), mode));
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, convertList(dbHelper.getAllCounters(), mode));
         historyList.setAdapter(arrayAdapter);
     }
 
@@ -114,7 +112,10 @@ public class DataActivity extends AppCompatActivity {
         return true;
     }
 
-    private List<String> verifyList(List<Pair<String, Integer>> iList, boolean mode) {
+    // Convert list of tuples from the DB to list of strings based on current Mode for DataActivity
+    // Conversion is done after the fact since Name is stored in the DB as: 1, 2, 3 since it is generic
+    // If the mode if set to name mode then can use the names stored in shared data to create the final strings
+    private List<String> convertList(List<Pair<String, Integer>> iList, boolean mode) {
         List<String> returnList = new ArrayList<>();
         if (mode){
             for (int i = 0; i < iList.size(); i++) {
